@@ -48,5 +48,6 @@ python test.py --config configs/tasks/addnist.yaml --device cuda:0 --seed 42 --r
 
 ## Notes
 
-1. The first_gen pickle file can be shared across baselines & surrogates to save compute.
-2. If a run is crashed & killed, re-runing the same command will by default resume from the last checkpoint.
+1. Bert surrogate checkpoints & search results can be downloaded from [link](https://figshare.com/s/7df3e41015b341f7326b?file=53351423) 
+2. The first_gen pickle file can be shared across baselines & surrogates to save compute.
+3. If a run is crashed & killed, re-runing the same command will by default resume from the last checkpoint.
