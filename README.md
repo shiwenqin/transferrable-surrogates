@@ -69,6 +69,10 @@ For the default setting search output can be found in `./results` and figures ca
 python test.py --config configs/tasks/addnist.yaml --device cuda:0 --seed 42 --result_path SEARCH_OUTPUT_PATH_HERE
 ```
 
+**Surrogate as NAS objective**:
+
+For experiments use surrogate predictions as NAS objective, please refer to branch `surrogate_as_obj`.
+
 ## Notes
 
 1. The first_gen pickle file can be shared across baselines & surrogates to save compute.
