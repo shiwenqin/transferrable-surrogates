@@ -11,17 +11,7 @@ class ZCPEncoder(BaseEncoder):
     def __init__(self, data_loader, num_classes, args, device, zcps=None, return_names=True):
         super().__init__()
 
-        train_loader, val_loader, _, _ = get_data_loaders(
-            dataset=args.dataset,
-            batch_size=32,
-            image_size=args.image_size,
-            root="../einspace/data",
-            load_in_gpu=args.load_in_gpu,
-            device=args.device,
-            log=args.verbose_eval,
-            seed=args.seed
-        )
-
+        self.data_loader = data_loader
         self.num_classes = num_classes
         self.config = vars(args)
         self.device = device

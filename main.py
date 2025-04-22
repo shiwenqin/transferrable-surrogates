@@ -1,6 +1,5 @@
 from functools import partial
 from pprint import pprint
-import random
 
 import os
 import torch
@@ -12,11 +11,13 @@ from search_strategies import create_search_strategy
 from pcfg import PCFG
 from grammars import grammars
 from network import Network
-from evaluation import evaluation_fn
+from evaluation import evaluation_fn, bert_evaluation_fn
 from arguments import parse_arguments
 from data import get_data_loaders
 from utils import load_config, Limiter
 from functools import partial
+
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 
 def compile_fn(node, args):
@@ -97,13 +98,27 @@ if __name__ == "__main__":
     )
     print(grammar)
 
-    eval_fn = partial(
-        evaluation_fn,
-        args=args,
-        train_loader=train_loader,
-        val_loader=val_loader,
-    )
+    limiter.set_memory_checkpoint()
+    print(f"Memory checkpoint: {limiter.memory_checkpoint} MB")
 
+    # bert model
+
+    tokenizer = AutoTokenizer.from_pretrained(args.model_ckp)
+    model = AutoModelForSequenceClassification.from_pretrained(
+        args.model_ckp,
+        num_labels=1,
+        problem_type="regression"
+    ).to(args.model_device)
+    model.eval()
+
+    limiter.set_bg_memory_checkpoint()
+
+    eval_fn = partial(
+        bert_evaluation_fn,
+        model=model,
+        tokenizer=tokenizer,
+        device=args.model_device,
+    )
     # create the input parameters
     input_params = {
         "shape": torch.Size([1, args.channels, *args.image_size]),

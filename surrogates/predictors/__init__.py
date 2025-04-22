@@ -5,13 +5,6 @@ from xgboost import XGBRegressor
 from surrogates.predictors.ensemble import BaggingEnsemble 
 #from surrogates.predictors.autogluon_pred import AutoGluon
 from surrogates.predictors.bert_pred import BertPredictor
-from surrogates.predictors.transfer_pred import TransferPredictor
-
-# hackiest hack
-import arguments
-import utils
-args = arguments.parse_arguments()
-args = utils.load_config(args)
 
 xgb_args = {
     "tree_method": "hist",
@@ -28,7 +21,6 @@ predictor_cls = {
     'ensemble_lightgbm': lambda seed: BaggingEnsemble('ensemble_lightgbm', random_state=seed),
     'ensemble_xgb': lambda seed: BaggingEnsemble('ensemble_xgb', random_state=seed),
     'ensemble_mix': lambda seed: BaggingEnsemble('ensemble_mix',random_state=seed),
-    'tr_rf': lambda seed, **kwargs: TransferPredictor(RandomForestRegressor(random_state=seed, **kwargs), dataset=args.dataset, data_dir='../transfer_data', agg_type='minmax'),
     #'autogluon': lambda seed: AutoGluon(),
     #'tabpfn': lambda seed: AutoGluon(TabPFN=True),
     'random': lambda seed: RandomSurrogate(random_state=seed),

@@ -1,3 +1,4 @@
+import json
 from functools import partial
 from pprint import pprint
 from os.path import join
@@ -90,8 +91,15 @@ search_results = load(open(join(
     "search_results.pkl"
 ), "rb"))
 
+eval_res = json.loads(open(join(
+    args.results_path,
+    "eval_res.json"
+), "r").read())
+best_index = eval_res["best_idx"]
+best_val_score = max(eval_res["eval_res"])
+
 # get the best architecture, sorted by "accuracy"
-best_architecture, best_val_score, _, _, _ = sorted(search_results["rewards"], key=lambda x: x[1], reverse=True)[0]
+best_architecture, _, _, _, _ = search_results["rewards"][best_index]
 
 # evaluate the best architecture
 limiter.timer.start()

@@ -70,6 +70,20 @@ class BertPredictor:
         self.model.to('cpu') # Load model to CPU to avoid CUDA memory usage
         torch.cuda.empty_cache()
 
+    def log(self, info):
+        log_file = "bert_predictor_0224.json"
+        # Temporary debugging function
+        log_file = "bert_predictor_0325_addnist.json"
+        if self.index == 0:
+            with open(log_file, "w") as f:
+                json.dump(info, f, indent=4)
+            return
+        with open(log_file, "r") as f:
+            logs = json.load(f)
+        logs.update(info)
+        with open(log_file, "w") as f:
+            json.dump(logs, f, indent=4)
+
     def _preprocess_func(self, arch_str):
         return self.tokenizer(arch_str, 
                               padding='longest', 
@@ -84,6 +98,11 @@ class BertPredictor:
         with torch.no_grad():
             outputs = self.model(**inputs)
             logits = outputs.logits.detach().cpu().numpy().tolist()
+            # info = { self.index:{
+            #     "input": X.loc[:,0].tolist(),
+            #     "output": logits
+            # }}
+            #self.log(info)
             self.index += 1
 
         self.model.to('cpu') # Load model to CPU to avoid CUDA memory usage

@@ -7,13 +7,15 @@ results/
 logs/
 *.json
 #configs/
-#scripts/
+scripts/
 notebooks/
 first_gen/
 res/
 model_ckp/
 search_results/
 search_obj_results/
+
+model_ckp/
 
 .vscode/
 

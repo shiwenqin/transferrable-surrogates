@@ -488,7 +488,6 @@ def get_data_loaders(
 
     pin_memory = False
     num_workers = 0
-    
     train_loader = DataLoader(
         trainset,
         batch_size=batch_size,

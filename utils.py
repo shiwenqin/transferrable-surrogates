@@ -34,7 +34,7 @@ def load_config(args):
     # convert to args
     for key, value in config.items():
         if f"--{key}" in sys.argv:
-            #warn(f"Skipping config value for {key} as it is already set in the arguments.")
+            warn(f"Skipping config value for {key} as it is already set in the arguments.")
             continue
 
         setattr(args, key, value)
@@ -141,7 +141,7 @@ class Limiter:
         self.limits = limits
         self.timer = Timer()
         self.memory_checkpoint = None
-
+        self.bg_memory_checkpoint = None
         self.n_batch_passes = n_batch_passes
 
         #print(f"Limiter({self.limits})")
@@ -155,6 +155,7 @@ class Limiter:
         # get the memory usage
 
         self.memory = psutil.Process().memory_info().rss / (1024 * 1024)  # Convert bytes to MB
+        self.memory -= self.bg_memory_checkpoint if self.bg_memory_checkpoint is not None else 0
 
         # check if the diff between memory and memory checkpoint is over the limit
         self.diff = (self.memory - self.memory_checkpoint) if self.memory_checkpoint is not None else 0
@@ -188,6 +189,9 @@ class Limiter:
 
     def set_memory_checkpoint(self):
         self.memory_checkpoint = psutil.Process().memory_info().rss / (1024 * 1024)
+
+    def set_bg_memory_checkpoint(self):
+        self.bg_memory_checkpoint = psutil.Process().memory_info().rss / (1024 * 1024)
 
     def reset_memory_checkpoint(self):
         self.memory_checkpoint = None

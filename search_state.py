@@ -356,6 +356,55 @@ class DerivationTreeNode:
 
         return repr
 
+    def param_string(self):
+        if self.operation:
+            d = {
+                "out_feature_shape": list(self.output_params["shape"][1:]),
+                # "branching_factor": self.output_params["branching_factor"],
+                # "num_params": self.output_params["num_params"] if "num_params" in self.output_params else 0,
+            }
+            # if self.output_params["other_shape"]:
+            #     d["other_shape"] = list(self.output_params["other_shape"][1:])
+            return str(d)
+        else:
+            return ""
+
+    def to_long_string(self):
+        # convert into a string representation
+        # that uses bracket notation to represent the tree
+
+        # determine types of brackets to use
+        if self.operation:
+            if "branching" in self.operation.name:
+                brackets = "[]"
+            elif "sequential" in self.operation.name:
+                brackets = "[]"
+            elif "routing" in self.operation.name:
+                brackets = "[]"
+            elif "computation" in self.operation.name:
+                brackets = "[]"
+            else:
+                brackets = None
+
+            # Initialize the string representation
+            repr = self.operation.name
+            if brackets:
+                repr += brackets[0]
+            else:
+                repr += self.param_string()
+
+            # Append the string representation of each child
+            children_repr = ", ".join(child.to_long_string() for child in self.children)
+            repr += children_repr
+
+            # Append the closing bracket
+            if brackets:
+                repr += brackets[1]
+        else:
+            repr = f"None"
+
+        return repr
+
     def __hash__(self):
         return hash(self.id)
 

@@ -32,3 +32,14 @@ def evaluation_fn(node, args, train_loader, val_loader):
         print(f"Trainer error: {e}")
         return 0.0
     return best["val_score"]
+
+def bert_evaluation_fn(node, model, tokenizer, device):
+    print(f"Evaluating node: {node.id}")
+    with torch.no_grad():
+    #input = str(node)
+        input = node.to_long_string()
+        inputs = tokenizer(input, padding='longest', return_tensors='pt', truncation=True).to(device)
+        with torch.no_grad():
+            outputs = model(**inputs)
+            logits = outputs.logits.detach().cpu().numpy().tolist()
+    return logits[0][0]

@@ -31,8 +31,8 @@ elitism: False
 surrogate: random  # surrogate model - see `surrogates/predictors/__init__.py`
 
 #seed: 42  # random seed - set it only once in the config
-use_features: True  # use GRAF
-use_zcp: True  # use ZCP
+use_features: False  # use GRAF
+use_zcp: False  # use ZCP
 use_str: False
 surrogate_n_sampled: 20  # number of individuals to sample for the surrogate
 surrogate_n_chosen: 5  # number of individuals to choose for ground truth eval based on the surrogate
