@@ -1,5 +1,7 @@
 # Transferrable Surrogates in Expressive Neural Architecture Search Spaces
 
+[[preprint]](https://arxiv.org/abs/2504.12971) [[project page]](https://shiwenqin.github.io/TransferrableSurrogate/)
+
 Please first follow the instructions on [einspace](https://github.com/linusericsson/einspace) to set up environment and data.
 
 ## Environment Setup
@@ -51,3 +53,17 @@ python test.py --config configs/tasks/addnist.yaml --device cuda:0 --seed 42 --r
 1. Bert surrogate checkpoints & search results can be downloaded from [link](https://figshare.com/s/7df3e41015b341f7326b?file=53351423) 
 2. The first_gen pickle file can be shared across baselines & surrogates to save compute.
 3. If a run is crashed & killed, re-runing the same command will by default resume from the last checkpoint.
+
+## Cite us
+
+```
+@misc{qin2025transferrablesurrogatesexpressiveneural,
+      title={Transferrable Surrogates in Expressive Neural Architecture Search Spaces}, 
+      author={Shiwen Qin and Gabriela Kadlecová and Martin Pilát and Shay B. Cohen and Roman Neruda and Elliot J. Crowley and Jovita Lukasik and Linus Ericsson},
+      year={2025},
+      eprint={2504.12971},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2504.12971}, 
+}
+```
