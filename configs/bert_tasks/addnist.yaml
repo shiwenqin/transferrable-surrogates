@@ -1,0 +1,78 @@
+# search details
+search_space: "einspace"
+search_strategy: "surrogate_sample_evolution"  # or "surrogate_rejection_evolution"
+steps: 300  # 1000
+backtrack: true
+mode: "iterative"
+time_limit: 300  # sampling time limit
+max_id_limit: 10000  # max number of nodes
+depth_limit: 20  # max depth
+mem_limit: 10001  # total memory limit (RAM)
+individual_mem_limit: 10240  # memory limit per individual (also applied to individual tensors)
+batch_pass_limit: 0.1  # batch pass limit in seconds
+n_tries: 10  # number of tries to evolve a new individual before we sample a random individual instead
+
+# search strategy specific details
+regularised: True
+#population_size: 20  # number of individuals in the population (every iteration we sample 1 offspring and remove the oldest individual)
+mutation_strategy: "random"
+mutation_rate: 1.0
+crossover_strategy: "two_point"
+crossover_rate: 0
+selection_strategy: "tournament"
+tournament_size: 10
+elitism: False
+
+# surrogate search settings
+
+# surrogate settings
+
+# surrogate: random ... >>> baseline evolution <<<
+surrogate: bert  # surrogate model - see `surrogates/predictors/__init__.py`
+
+#seed: 42  # random seed - set it only once in the config
+use_features: False  # use GRAF
+use_zcp: False  # use ZCP
+use_str: True
+refit_steps: 100
+surrogate_n_sampled: 20  # number of individuals to sample for the surrogate
+surrogate_n_chosen: 5  # number of individuals to choose for ground truth eval based on the surrogate
+
+model_ckp: ../../outputs/raw_exp_res/table1/cifar10_aug_fft_ModernBERT-large_arch_long_134145/
+model_device: cuda:0
+refit_steps: 100
+
+# evaluation details
+dataset: addnist
+load_in_gpu: True
+num_classes: 20
+channels: 3
+image_size:
+  - 28
+  - 28
+input_mode: "im"
+
+# training details
+score: "xe"
+epochs: 16
+patience: 8
+test_epochs: 64
+batch_size: 256
+hpo_runs: 1
+lr: 0.04
+momentum: 0.9
+weight_decay: 0.0003
+
+# logging and plotting
+verbose_search: false
+verbose_eval: true
+visualise: false
+visualise_scale: 0.8
+print_after: 10000
+
+# saving results and figures
+#figures_path: "figures"
+#results_path: "results"
+
+# continue search
+continue_search: true

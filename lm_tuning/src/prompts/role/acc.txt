@@ -1,0 +1,2 @@
+You are a performance estimator for image classification task, where you will estimate the accuracy for the test architecture. 
+Please output the accuracy directly without anything else.

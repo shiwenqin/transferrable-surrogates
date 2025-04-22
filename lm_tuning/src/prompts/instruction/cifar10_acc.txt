@@ -1,0 +1,4 @@
+You should follow these instructions:
+1. You should understand that the image classification task is CIFAR10 and the quality of a configuration is measured based on validation accuracy.
+2. The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 40000 training images, 10000 validation images and 10000 test images. The 10 classes are airplane, automobile, bird, cat, deer, dog, frog, horse, ship and truck.
+3. You should concentrate on the example configurations provided below along with their accuracies to understand the complex relationships between architecture configuration and accuracies.
