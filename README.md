@@ -1,10 +1,15 @@
 # Transferrable Surrogates in Expressive Neural Architecture Search Spaces
 
-[[preprint]](https://arxiv.org/abs/2504.12971) [[project page]](https://shiwenqin.github.io/TransferrableSurrogate/)
 
-Please first follow the instructions on [einspace](https://github.com/linusericsson/einspace) to set up environment and data.
+This is the official codebase for our paper:
+
+[Transferrable Surrogates in Expressive Neural Architecture Search Spaces, Shiwen Qin, Gabriela Kadlecová, Martin Pilát, Shay B. Cohen, Roman Neruda, Elliot J. Crowley, Jovita Lukasik, Linus Ericsson](https://arxiv.org/abs/2504.12971)
+
+Check out our [project page](https://shiwenqin.github.io/TransferrableSurrogate/) too!
 
 ## Environment Setup
+
+Please first follow the instructions on [einspace](https://github.com/linusericsson/einspace) to set up environment and data.
 
 ```bash
 conda activate einspace
@@ -12,7 +17,23 @@ pip install torch torchvision torchaudio -U
 pip install xgboost lightgbm pympler
 ```
 
+## Important Folders
+
+```
+.
+├── configs/                # Config files for searching experiments
+├── lm_tuning/              # LM surrogates finetune and inference codes
+├── scripts/
+│   ├── feature_extraction/ # Scripts for ZCP & GRAF feature extraction
+│   ├── transfer/           # RF surrogates transfer Learning Evaluation Scripts
+├── surrogates/
+│   ├── encodings/          # Encoding implementations (str, zcp etc.)
+│   ├── predictors/         # Surrogate implementations (LM, RF etc.)
+```
+
 ## Running Experiments
+
+BERT-based surrogate checkpoints & search results can be downloaded from [link](https://figshare.com/s/7df3e41015b341f7326b?file=53351423) 
 
 Examples are given for Dataset AddNIST and seed 42
 
@@ -50,9 +71,8 @@ python test.py --config configs/tasks/addnist.yaml --device cuda:0 --seed 42 --r
 
 ## Notes
 
-1. Bert surrogate checkpoints & search results can be downloaded from [link](https://figshare.com/s/7df3e41015b341f7326b?file=53351423) 
-2. The first_gen pickle file can be shared across baselines & surrogates to save compute.
-3. If a run is crashed & killed, re-runing the same command will by default resume from the last checkpoint.
+1. The first_gen pickle file can be shared across baselines & surrogates to save compute.
+2. If a run is crashed & killed, re-runing the same command will by default resume from the last checkpoint.
 
 ## Cite us
 
