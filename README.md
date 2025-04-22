@@ -25,10 +25,10 @@ pip install xgboost lightgbm pympler
 ├── lm_tuning/              # LM surrogates finetune and inference codes
 ├── scripts/
 │   ├── feature_extraction/ # Scripts for ZCP & GRAF feature extraction
-│   ├── transfer/           # RF surrogates transfer Learning Evaluation Scripts
+│   └── transfer/           # RF surrogates transfer Learning Evaluation Scripts
 ├── surrogates/
 │   ├── encodings/          # Encoding implementations (str, zcp etc.)
-│   ├── predictors/         # Surrogate implementations (LM, RF etc.)
+│   └── predictors/         # Surrogate implementations (LM, RF etc.)
 ```
 
 ## Running Experiments
@@ -63,7 +63,7 @@ python main.py --config configs/tasks/addnist.yaml --seed 42 --first_gen_path fi
 
 For the default setting search output can be found in `./results` and figures can be found in `./figures`.
 
-## Test best architecture
+**Test best architecture**:
 
 ```bash
 python test.py --config configs/tasks/addnist.yaml --device cuda:0 --seed 42 --result_path SEARCH_OUTPUT_PATH_HERE
